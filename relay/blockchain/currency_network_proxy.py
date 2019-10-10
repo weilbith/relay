@@ -10,7 +10,6 @@ import hexbytes
 
 import relay.concurrency_utils as concurrency_utils
 from .proxy import Proxy, reconnect_interval, sorted_events
-from relay.logger import get_logger
 from relay.network_graph.payment_path import PaymentPath, FeePayer
 
 from .events import BlockchainEvent
@@ -40,7 +39,7 @@ class Trustline(NamedTuple):
     balance: int = 0
 
 
-logger = get_logger("currency network", logging.DEBUG)
+logger = logging.getLogger("currency network")
 
 
 class CurrencyNetworkProxy(Proxy):

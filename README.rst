@@ -2,7 +2,7 @@
 
 .. image:: https://circleci.com/gh/trustlines-protocol/relay.svg?style=svg
     :target: https://circleci.com/gh/trustlines-protocol/relay
-    
+
 trustlines relay server
 =======================
 
@@ -54,6 +54,23 @@ Usage
 
     cd relay
     python trustlines.py
+
+Config
+~~~~~~
+Logging config possible keys:
+- `api.resources`
+- `websockets`
+- `currency network`
+- `currency network`
+- `relay`
+- `token`
+- `node`
+- `proxy`
+- `unwrap eth`
+- `trustlines`
+- `pushserviceclient`
+- `pushservice`
+- `streams`
 
 Docs
 ----

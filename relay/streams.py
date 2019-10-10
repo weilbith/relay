@@ -4,9 +4,9 @@ from typing import List, Iterable  # noqa: F401
 
 
 from .events import MessageEvent, Event
-from .logger import get_logger
 
-logger = get_logger("streams", logging.DEBUG)
+
+logger = logging.getLogger("streams")
 
 
 class Client(object):

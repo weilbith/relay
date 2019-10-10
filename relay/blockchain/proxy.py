@@ -10,9 +10,8 @@ import socket
 
 import relay.concurrency_utils as concurrency_utils
 from .events import BlockchainEvent
-from relay.logger import get_logger
 
-logger = get_logger("proxy", logging.DEBUG)
+logger = logging.getLogger("proxy")
 
 
 queryBlock = "latest"

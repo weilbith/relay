@@ -40,12 +40,11 @@ from .blockchain.unw_eth_proxy import UnwEthProxy
 from .blockchain.events import BlockchainEvent
 from .network_graph.graph import CurrencyNetworkGraph
 from .exchange.orderbook import OrderBookGreenlet
-from .logger import get_logger
 from .streams import Subject, MessagingSubject
 from .events import NetworkBalanceEvent, BalanceEvent
 import relay.concurrency_utils as concurrency_utils
 
-logger = get_logger("relay", logging.DEBUG)
+logger = logging.getLogger("relay")
 
 
 class TokenNotFoundException(Exception):

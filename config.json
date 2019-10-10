@@ -14,5 +14,15 @@
   "gasPriceComputation": {
     "method": "rpc",
     "gasPrice": 0
+  },
+  "logging": {
+    "root": {
+      "level": "DEBUG"
+    },
+    "loggers": {
+      "relay": {
+        "level": "DEBUG"
+      }
+    }
   }
 }

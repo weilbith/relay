@@ -16,11 +16,10 @@ from relay.exchange.order import Order
 from relay.exchange.orderbook import OrderInvalidException
 from relay.blockchain.exchange_proxy import ExchangeProxy
 from relay.concurrency_utils import TimeoutException
-from relay.logger import get_logger
 
 from ..schemas import ExchangeEventSchema, UserExchangeEventSchema
 
-logger = get_logger("api.resources", logging.DEBUG)
+logger = logging.getLogger("api.resources")
 
 TIMEOUT_MESSAGE = "The server could not handle the request in time"
 

@@ -2,11 +2,10 @@ import logging
 
 from relay.streams import Client, DisconnectedError, Subscription
 from relay.events import Event
-from relay.logger import get_logger
 from .pushservice import FirebaseRawPushService, InvalidClientTokenException
 
 
-logger = get_logger("pushserviceclient", logging.DEBUG)
+logger = logging.getLogger("pushserviceclient")
 
 
 class PushNotificationClient(Client):

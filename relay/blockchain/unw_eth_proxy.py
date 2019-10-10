@@ -5,7 +5,6 @@ import itertools
 
 import relay.concurrency_utils as concurrency_utils
 from .proxy import Proxy, sorted_events
-from relay.logger import get_logger
 from .events import BlockchainEvent
 from .unw_eth_events import (
     UnwEthEvent,
@@ -15,7 +14,7 @@ from .unw_eth_events import (
     standard_event_types,
 )
 
-logger = get_logger("unwrap eth", logging.DEBUG)
+logger = logging.getLogger("unwrap eth")
 
 
 class UnwEthProxy(Proxy):

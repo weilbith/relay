@@ -14,11 +14,10 @@ from geventwebsocket.handler import WebSocketHandler
 from relay.utils import get_version
 
 from relay.relay import TrustlinesRelay
-from relay.logger import get_logger
 from .api.app import ApiApp
+import json
 
-
-logger = get_logger("trustlines", logging.DEBUG)
+logger = logging.getLogger("trustlines")
 
 
 def patch_warnings_module():
@@ -63,10 +62,33 @@ def _show_version(ctx, param, value):
         ctx.exit()
 
 
+def load_config(config_file_path):
+    with open(config_file_path) as data_file:
+        return json.load(data_file)
+
+
+def configure_logging(config):
+    """configure the logging subsystem via the 'logging' key in the json config"""
+    logging.basicConfig(format="%(asctime)s[%(levelname)s] %(name)s: %(message)s")
+    try:
+        logging.config.dictConfig(config["logging"])
+    except (ValueError, TypeError, AttributeError, ImportError) as err:
+        click.echo(
+            f"Error configuring logging: {err}\n"
+            "Please check your configuration file and the LOGLEVEL environment variable"
+        )
+        raise click.Abort()
+
+    logger.debug(
+        "Initialized logging system with the following config: %r", config["logging"]
+    )
+
+
 @click.command()
 @click.option("--port", default=5000, show_default=True, help="port to listen on")
 @click.option(
     "--config",
+    "config_path",
     default="config.json",
     help="path to json configuration file",
     show_default=True,
@@ -86,12 +108,19 @@ def _show_version(ctx, param, value):
     callback=_show_version,
 )
 @click.pass_context
-def main(ctx, port, config, addresses, version):
+def main(ctx, port, config_path, addresses, version):
     """run the relay server"""
+    config = load_config(config_path)
+    configure_logging(config)
     logger.info("Starting relay server version %s", get_version())
     # silence warnings from urllib3, see github issue 246
-    get_logger("urllib3.connectionpool", level=logging.CRITICAL)
-    trustlines = TrustlinesRelay(config_json_path=config, addresses_json_path=addresses)
+    urllib3_logger = logging.getLogger("urllib3.connectionpool")
+    urllib3_logger.level = logging.CRITICAL
+
+    # TODO: My plan is to no longer give the path to TrustlinesRelay but to give it the config dict
+    trustlines = TrustlinesRelay(
+        config_json_path=config_path, addresses_json_path=addresses
+    )
     trustlines.start()
     ipport = ("", port)
     app = ApiApp(trustlines)

@@ -8,9 +8,8 @@ from .rpc_protocol import validating_rpc_caller
 from ..schemas import UserCurrencyNetworkEventSchema, MessageEventSchema
 from relay.blockchain.events import Event, TLNetworkEvent
 from relay.events import MessageEvent, AccountEvent
-from relay.logger import get_logger
 
-logger = get_logger("websockets", logging.DEBUG)
+logger = logging.getLogger("websockets")
 
 
 class RPCWebSocketApplication(WebSocketApplication):

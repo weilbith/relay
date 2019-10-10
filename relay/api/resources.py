@@ -35,13 +35,12 @@ from .schemas import (
 )
 from relay.relay import TrustlinesRelay
 from relay.concurrency_utils import TimeoutException
-from relay.logger import get_logger
 
 from relay.network_graph.payment_path import PaymentPath, FeePayer
 
 from relay.utils import get_version
 
-logger = get_logger("api.resources", logging.DEBUG)
+logger = logging.getLogger("api.resources")
 
 
 TIMEOUT_MESSAGE = "The server could not handle the request in time"
