@@ -68,3 +68,6 @@ target/
 
 # webstorm, pycharm ide
 .idea
+
+# default name of generated file
+addresses.json
