@@ -1,7 +1,7 @@
 import json
 from typing import List
 
-from currency_network_registry_fetcher.currency_network import CurrencyNetwork
+from relay.network_registry.currency_network import CurrencyNetwork
 
 
 class AddressFile:

@@ -3,11 +3,11 @@ from typing import List
 from web3 import Web3
 from web3.datastructures import AttributeDict
 
-from currency_network_registry_fetcher.constants import (
+from relay.network_registry.constants import (
     CURRENCY_NETWORK_FILTER_EVENT_NAME,
     MINIMAL_REGISTRY_CONTRACT_ABI,
 )
-from currency_network_registry_fetcher.currency_network import CurrencyNetwork
+from relay.network_registry.currency_network import CurrencyNetwork
 
 
 class RegistryContract:
@@ -20,6 +20,7 @@ class RegistryContract:
         event_logs = self._contract.events[CURRENCY_NETWORK_FILTER_EVENT_NAME].getLogs(
             fromBlock=from_block
         )
+        print(event_logs[14])
         currency_networks = self._convert_logs_to_currency_network(event_logs)
         return currency_networks
 

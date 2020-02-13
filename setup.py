@@ -72,7 +72,7 @@ setup(
     entry_points={
         "console_scripts": [
             "tl-relay=relay.boot:main",
-            "cnr-fetcher=currency_network_registry_fetcher.cli:main",
+            "cnr-fetcher=relay.network_registry.cli:main",
         ]
     },
 )

@@ -3,8 +3,8 @@ from typing import List
 import click
 from deploy_tools.cli import connect_to_json_rpc
 
-from currency_network_registry_fetcher.address_file import AddressFile
-from currency_network_registry_fetcher.cli_options import (
+from relay.network_registry.address_file import AddressFile
+from relay.network_registry.cli_options import (
     address_file_name_option,
     from_block_option,
     identity_implementation_address_option,
@@ -14,8 +14,9 @@ from currency_network_registry_fetcher.cli_options import (
     registry_address_option,
     save_to_file_option,
 )
-from currency_network_registry_fetcher.currency_network import CurrencyNetwork
-from currency_network_registry_fetcher.registry_contract import RegistryContract
+from relay.network_registry.currency_network import CurrencyNetwork
+from relay.network_registry.default_values import get_default_values_by_chain_id
+from relay.network_registry.registry_contract import RegistryContract
 
 
 @click.command()
@@ -38,6 +39,7 @@ def main(
     identity_proxy_factory_address: str,
 ) -> None:
     web3 = connect_to_json_rpc(jsonrpc)
+    chain_default_values = get_default_values_by_chain_id(web3.eth.chainId)
     registry_contract = RegistryContract(web3, registry_address)
     currency_networks = registry_contract.get_currency_networks(from_block)
     filtered_currency_networks = filter_currency_network_by_registrar(
